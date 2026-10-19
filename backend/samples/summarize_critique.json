@@ -1,0 +1,22 @@
+{
+  "name": "Summarize then critique",
+  "graph": {
+    "nodes": [
+      { "id": "start", "type": "start", "position": { "x": 0, "y": 0 }, "data": { "label": "Start" } },
+      {
+        "id": "summarize", "type": "llm", "position": { "x": 260, "y": 0 },
+        "data": { "label": "Summarize", "system": "You are a concise analyst.",
+                  "prompt": "Summarize in 3 bullet points:\n\n{{start.output}}" }
+      },
+      {
+        "id": "critique", "type": "llm", "position": { "x": 520, "y": 0 },
+        "data": { "label": "Critique", "system": "You are a strict reviewer.",
+                  "prompt": "List 2 weaknesses of this summary:\n\n{{summarize.output}}" }
+      }
+    ],
+    "edges": [
+      { "id": "e1", "source": "start", "target": "summarize" },
+      { "id": "e2", "source": "summarize", "target": "critique" }
+    ]
+  }
+}
